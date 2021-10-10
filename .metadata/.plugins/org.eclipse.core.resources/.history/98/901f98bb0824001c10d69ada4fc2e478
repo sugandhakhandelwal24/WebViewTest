@@ -1,0 +1,23 @@
+package Calc;
+
+import org.openqa.selenium.remote.DesiredCapabilities;
+
+import io.appium.java_client.MobileElement;
+import io.appium.java_client.android.AndroidDriver;
+
+public class TestControls {
+
+	static AndroidDriver<MobileElement> driver;
+	public static void beforeClass()
+	{
+		System.out.println("Create Driver Instance");
+		DesiredCapabilities cap = new DesiredCapabilities();
+        cap.setCapability("platformName", "Android");
+        cap.setCapability("platformVersion", "10");
+        cap.setCapability("appPackage", "com.touchboarder.android.api.demos");
+        cap.setCapability("appActivity", "com.example.android.apis.ApiDemos");   
+	}
+	
+	
+	
+}

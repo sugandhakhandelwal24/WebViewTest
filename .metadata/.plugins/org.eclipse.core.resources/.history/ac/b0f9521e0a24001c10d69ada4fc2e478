@@ -1,0 +1,74 @@
+package Calc;
+
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.util.List;
+import java.util.concurrent.TimeUnit;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.remote.DesiredCapabilities;
+import org.openqa.selenium.remote.SessionId;
+
+import io.appium.java_client.MobileElement;
+import io.appium.java_client.android.AndroidDriver;
+
+public class TestControls {
+
+	static AndroidDriver<MobileElement> driver;
+	public static void beforeClass() throws MalformedURLException, InterruptedException
+	{
+		System.out.println("Create Driver Instance");
+		URL url = new URL("http://127.0.0.1:4723/wd/hub");
+		DesiredCapabilities cap = new DesiredCapabilities();
+        cap.setCapability("platformName", "Android");
+        cap.setCapability("platformVersion", "10");
+        cap.setCapability("appPackage", "com.touchboarder.android.api.demos");
+        cap.setCapability("appActivity", "com.example.android.apis.ApiDemos");   
+        
+//      AndroidDriver
+      driver = new AndroidDriver<MobileElement>(url, cap);
+      driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+      SessionId sessionId = driver.getSessionId();
+      System.out.println(sessionId);
+		Thread.sleep(1000);
+      String locValue = "//android.widget.Button[@text='Continue']";
+      checkAndClick(locValue);
+      Thread.sleep(1000);
+      //android.widget.Button[@text='Continue']
+      
+      locValue = "//android.widget.Button[@text='OK']";
+      checkAndClick(locValue);
+      Thread.sleep(1000);
+      locValue = "//android.widget.TextView[@text='OK']";
+      checkAndClick(locValue);
+      Thread.sleep(1000);
+      locValue = "//android.widget.TextView[@text='API Demos']";
+      checkAndClick(locValue);
+      Thread.sleep(1000);
+      locValue = "//android.widget.TextView[@text='Views']";
+      checkAndClick(locValue);
+      Thread.sleep(1000);
+      clickView("Controls");
+      clickView("01. Light Theme");
+	}
+	
+	private static void clickView(String elemClick) {
+        MobileElement parent = driver.findElement(By.xpath("//android.widget.FrameLayout[@resource-id='android:id/content']"));
+        List<MobileElement> lstViews = parent.findElements(By.xpath("//android.widget.TextView"));
+        for (MobileElement view : lstViews) {
+            System.out.println(view.getAttribute("text"));
+            if (view.getAttribute("text").equals(elemClick)) {
+                view.click();
+                break;
+            }
+	
+	private static void checkAndClick(String locValue) {
+        List<MobileElement> lstElems = driver.findElements(By.xpath(locValue));
+        if (lstElems.size()>0) {
+            lstElems.get(0).click();
+        }
+	
+	
+	
+	}
+	}

@@ -1,0 +1,77 @@
+package Calc;
+
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.util.List;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.remote.DesiredCapabilities;
+import org.openqa.selenium.remote.SessionId;
+
+import io.appium.java_client.MobileElement;
+import io.appium.java_client.android.AndroidDriver;
+
+public class PracticeDemoAPIs {
+	
+	static AndroidDriver<MobileElement> driver;
+	public static void main(String args[]) throws MalformedURLException, InterruptedException
+	{
+	//IP 127.0.0.1
+	//4723
+		
+		//URL
+        URL url = new URL("http://127.0.0.1:4723/wd/hub");
+        
+      //Desired Capability
+      DesiredCapabilities cap = new DesiredCapabilities();
+      cap.setCapability("platformName", "Android");
+      cap.setCapability("platformVersion", "10");
+      cap.setCapability("appPackage", "com.touchboarder.android.api.demos");
+      cap.setCapability("appActivity", "com.example.android.apis.ApiDemos");      
+       //AndroidDriver
+      
+      // new AndroidDriver<WebElement>(null, null)
+      AndroidDriver<MobileElement> driver = new AndroidDriver<MobileElement>(url, cap);
+      
+      SessionId sesId = driver.getSessionId(); // to get the session id
+      System.out.println(sesId);
+      
+ /*  List<MobileElement> listElm = driver.findElements(By.xpath("//android.widget.Button[@text='Continue']"));
+   	if(listElm.size()>0)
+   	{
+   		listElm.get(0).click();
+   	}*/
+      
+      String locValue = "//android.widget.Button[@text='Continue']";
+      checkAndClick(locValue);
+      Thread.sleep(1000);
+      locValue = "//android.widget.Button[@text='OK']";
+      checkAndClick(locValue); 
+      Thread.sleep(1000);
+      locValue = "//android.widget.TextView[@text='OK']";
+      checkAndClick(locValue);
+      Thread.sleep(1000);
+      locValue = "//android.widget.TextView[@text='API Demos']";
+      checkAndClick(locValue);
+      Thread.sleep(1000);
+      locValue = "//android.widget.TextView[@text='Views']";
+      checkAndClick(locValue);
+      Thread.sleep(1000);
+      
+    //android.widget.Button[@text='Continue']
+    //android.widget.Button[@text='OK']
+    //android.widget.TextView[@text='OK']
+    //android.widget.TextView[@text='API Demos']
+ 
+}
+	
+	
+	private static void checkAndClick(String locValue)
+	{
+		List<MobileElement> listElm = driver.findElements(By.xpath("//android.widget.Button[@text='Continue']"));
+	   	if(listElm.size()>0)
+	   	{
+	   		listElm.get(0).click();
+	   	}
+	}
+}
